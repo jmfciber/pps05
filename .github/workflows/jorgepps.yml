@@ -1,0 +1,23 @@
+name: Fugas
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  gitleaks-scan:
+    name: Comprobacion de fugas
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Comprobacion del repositorio
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Escaneo de gitleaks
+        uses: zricethezav/gitleaks-action@v2.3.9
+        with:
+          args: detect --source=.
+
